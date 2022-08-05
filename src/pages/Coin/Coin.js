@@ -22,7 +22,7 @@ const Coin = () => {
             console.log(res.data)
         }
         getCoinDetails()
-    }, [])
+    }, [id])
 
     console.log('coins', currency)
     const [days, setDays] = useState(1)
@@ -33,7 +33,7 @@ const Coin = () => {
             setHistoricalData(res.data.prices)
         }
         getHistoricalData()
-    }, [currency, days])
+    }, [id, currency, days])
 
     const handleChange = (val) => {
         setDays(val)
