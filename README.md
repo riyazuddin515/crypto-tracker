@@ -4,8 +4,8 @@
 
 ### Home Screen
 
-<img src="./src/screens/Home Screen.png" width='500' height='250'>
+<img src="./src/Screens/Home Screen.png" width='500' height='250'>
 
 ### Coin Details Screen
 
-<img src="./src/screens/Coin Details Screen.png" width='500' height='250'>
+<img src="./src/Screens/Coin Details Screen.png" width='500' height='250'>
