@@ -1,21 +1,24 @@
+import React, { useContext } from 'react'
 import { Container } from '@mui/material'
-import React from 'react'
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import { Padding } from '@mui/icons-material';
+import { CurrencyContext } from '../CurrencyContext'
 
 const Header = () => {
-    const [age, setAge] = React.useState('');
 
-    const handleChange = (event) => {
-        setAge(event.target.value);
-    };
+    const currencyList = ["INR", "USD", "EUR"]
+    const [currency, setCurrency] = useContext(CurrencyContext);
 
     return (
         <Container style={{ backgroundColor: 'black', display: 'flex', justifyContent: 'space-around', alignItems: 'center', padding: '10px 0px' }}>
             <h2 style={{ color: 'gold' }}>Crypto Tracker</h2>
+            <select name="currency" id="currency_id"
+                onChange={(e) => setCurrency(e.target.value)}
+                value={currency}
+                style={{ width: '100px', fontSize: '20px', borderRadius: '5px', padding: '0px 5px' }}>
+                {currencyList.map((each) => (
+                    <option key={each} value={each}>{each}</option>
+                ))}
+
+            </select>
 
         </Container>
     )

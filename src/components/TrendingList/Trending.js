@@ -1,6 +1,6 @@
 import { Container } from '@mui/system'
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { coinsListApi } from '../../config/apis'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,9 +9,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useNavigate } from 'react-router-dom';
+import { CurrencyContext } from '../../CurrencyContext';
 
 const Trending = () => {
 
+    const [currency, setCurrency] = useContext(CurrencyContext);
     const [coins, setCoins] = useState([])
     const [loading, setLoading] = useState(false)
     const navigation = useNavigate()
@@ -21,12 +23,12 @@ const Trending = () => {
     useEffect(() => {
         const getCoins = async () => {
             setLoading(true)
-            const res = await axios.get(coinsListApi('inr'))
+            const res = await axios.get(coinsListApi(currency))
             setCoins(res.data)
             setLoading(false)
         }
         getCoins()
-    }, [])
+    }, [currency])
 
     const handleSearch = () => {
         return coins.filter((coin) =>
@@ -54,10 +56,10 @@ const Trending = () => {
                         <Table sx={{ minWidth: 650 }} aria-label="simple table">
                             <TableHead style={{ backgroundColor: 'gold', color: 'white' }}>
                                 <TableRow>
-                                    <TableCell>Coin</TableCell>
-                                    <TableCell align="right">Price</TableCell>
-                                    <TableCell align="right">24h&nbsp;change</TableCell>
-                                    <TableCell align="right">Market&nbsp;cap</TableCell>
+                                    <TableCell align='left'>Coin</TableCell>
+                                    <TableCell align="center">Price in {currency}</TableCell>
+                                    <TableCell align="center">24h&nbsp;change</TableCell>
+                                    <TableCell align="center">Market&nbsp;cap in {currency}</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody style={{ backgroundColor: 'transparent', color: 'white' }}>
@@ -77,13 +79,14 @@ const Trending = () => {
                                                 <span>{coin.name}</span>
                                             </div>
                                         </TableCell>
-                                        <TableCell align="right" style={{ color: 'white' }}>{coin.current_price}</TableCell>
-                                        <TableCell align="right" style={{ color: 'white' }}>
+                                        <TableCell align="center" style={{ color: 'white' }}>{coin.current_price.toFixed(2)}
+                                        </TableCell>
+                                        <TableCell align="center" style={{ color: 'white' }}>
                                             {coin.market_cap_change_percentage_24h >= 0 ?
                                                 <span style={{ color: 'lightgreen' }}>+{coin.market_cap_change_percentage_24h.toFixed(2)}%</span> :
                                                 <span style={{ color: 'red' }}>{coin.market_cap_change_percentage_24h.toFixed(2)}%</span>}
                                         </TableCell>
-                                        <TableCell align="right" style={{ color: 'white' }}>{coin.market_cap}</TableCell>
+                                        <TableCell align="center" style={{ color: 'white' }}>{coin.market_cap}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>

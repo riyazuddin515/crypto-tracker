@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { CoinDetailsApi, CoinHistoricalChart } from '../../config/apis'
 import "./Coin.css"
@@ -7,11 +7,13 @@ import { Line } from 'react-chartjs-2'
 import Chart from 'chart.js/auto';
 import { CircularProgress, LinearProgress } from '@mui/material'
 import parse from 'html-react-parser';
+import { CurrencyContext } from '../../CurrencyContext';
 
 const Coin = () => {
     const location = useLocation()
     const id = location.pathname.split('/')[2]
 
+    const [currency, setCurrency] = useContext(CurrencyContext);
     const [coin, setCoin] = useState()
     useEffect(() => {
         const getCoinDetails = async () => {
@@ -22,15 +24,16 @@ const Coin = () => {
         getCoinDetails()
     }, [])
 
+    console.log('coins', currency)
     const [days, setDays] = useState(1)
     const [historicalData, setHistoricalData] = useState([])
     useEffect(() => {
         const getHistoricalData = async () => {
-            const res = await axios.get(CoinHistoricalChart(id, 'inr', days))
+            const res = await axios.get(CoinHistoricalChart(id, currency, days))
             setHistoricalData(res.data.prices)
         }
         getHistoricalData()
-    }, [days])
+    }, [currency, days])
 
     const handleChange = (val) => {
         setDays(val)
@@ -49,8 +52,8 @@ const Coin = () => {
                 <p>{parse(coin.description.en.split('. ')[0])}</p>
                 <div className="lower-data">
                     <span> <b>Rank:</b> {coin.market_cap_rank} </span>
-                    <span> <b>Current Price:</b> {coin.market_data.current_price.inr}</span>
-                    <span> <b>Market Price:</b> {coin.market_data.market_cap.inr}</span>
+                    <span> <b>Current Price:</b> {`${currency} ${coin.market_data.current_price[currency.toLowerCase()]}`}</span>
+                    <span> <b>Market Price:</b> {`${currency} ${coin.market_data.market_cap[currency.toLowerCase()]}`}</span>
                 </div>
             </div>
 

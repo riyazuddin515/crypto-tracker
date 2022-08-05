@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
+import { CurrencyContext } from '../CurrencyContext';
 import { TrendingApi } from '../config/apis'
 import AliceCarousel from 'react-alice-carousel';
 import 'react-alice-carousel/lib/alice-carousel.css';
@@ -7,15 +8,16 @@ import axios from 'axios';
 
 const Header = () => {
 
+    const [currency, setCurrency] = useContext(CurrencyContext);
     const [trending, setTrending] = useState([])
 
     useEffect(() => {
         const fetchTreanding = async () => {
-            const res = await axios.get(TrendingApi('inr'))
+            const res = await axios.get(TrendingApi(currency))
             setTrending(res.data)
         }
         fetchTreanding()
-    }, [])
+    }, [currency])
 
     const handleDragStart = (e) => e.preventDefault();
 
@@ -48,14 +50,14 @@ const Header = () => {
 
     return (
         <div className='banner'>
-            <h1 style={{ fontSize: '3rem' }}>Crypto Tracker</h1>
+            <h1>Crypto Tracker</h1>
             <p>Worlds leading crypto tracker</p>
             <AliceCarousel
                 mouseTracking
                 items={items}
                 responsive={responsive}
                 disableDotsControls
-                disableButtonsControls
+                // disableButtonsControls
                 infinite
             // autoPlay
             />
