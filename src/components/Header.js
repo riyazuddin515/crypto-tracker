@@ -8,8 +8,11 @@ const Header = () => {
     const [currency, setCurrency] = useContext(CurrencyContext);
 
     return (
-        <Container style={{ backgroundColor: 'black', display: 'flex', justifyContent: 'space-around', alignItems: 'center', padding: '10px 0px' }}>
-            <h2 style={{ color: 'gold' }}>Crypto Tracker</h2>
+        <div style={{
+            backgroundColor: 'black', display: 'flex', justifyContent: 'space-around', alignItems: 'center', padding: '15px 0px',
+            position: 'sticky', top: '0', zIndex: '999', borderBottom: '1px solid white'
+        }}>
+            <h1 style={{ color: 'gold' }}>Crypto Tracker</h1>
             <select name="currency" id="currency_id"
                 onChange={(e) => setCurrency(e.target.value)}
                 value={currency}
@@ -20,7 +23,7 @@ const Header = () => {
 
             </select>
 
-        </Container>
+        </div>
     )
 }
 

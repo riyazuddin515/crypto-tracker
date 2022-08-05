@@ -1,6 +1,6 @@
 import React from 'react'
 import Banner from '../../components/Banner'
-import Trending from '../../components/TrendingList/Trending'
+import Trending from '../../components/Trending'
 
 const Home = () => {
     return (

@@ -59,7 +59,7 @@ const Header = () => {
                 disableDotsControls
                 // disableButtonsControls
                 infinite
-            // autoPlay
+                autoPlay
             />
         </div>
     )

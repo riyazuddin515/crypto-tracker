@@ -1,7 +1,7 @@
 import { Container } from '@mui/system'
 import axios from 'axios'
 import React, { useContext, useEffect, useState } from 'react'
-import { coinsListApi } from '../../config/apis'
+import { coinsListApi } from '../config/apis'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -9,7 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { useNavigate } from 'react-router-dom';
-import { CurrencyContext } from '../../CurrencyContext';
+import { CurrencyContext } from '../CurrencyContext';
 
 const Trending = () => {
 
@@ -39,15 +39,16 @@ const Trending = () => {
 
     return (
         <Container>
-            <h1 style={{ textAlign: 'center', margin: '30px 0px' }}>Crytocurrency Prices by Market Cap</h1>
+            <h1 style={{ textAlign: 'center', margin: '5px 0px' }}>Crytocurrency Prices by Market Cap</h1>
             <input type="text" name="" id="" placeholder='Search for a crypto currency'
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 style={
                     {
                         width: '100%', height: '30px',
-                        margin: '20px 0px', padding: '20px',
-                        fontSize: '20px', outline: 'none'
+                        margin: '10px 0px', padding: '20px',
+                        fontSize: '20px', outline: 'none',
+                        borderRadius: '5px'
                     }
                 } />
             <TableContainer>
